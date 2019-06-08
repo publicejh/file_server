@@ -17,6 +17,6 @@ CORS_ORIGIN_WHITELIST = [
 MEDIA_URL = config_secret_deploy['django']['media_url']
 
 # 업로드된 파일을 저장할 디렉토리 경로
-MEDIA_ROOT = os.path.join(BASE_DIR, config_secret_deploy['django']['media_root'])
+MEDIA_ROOT = os.path.join(ROOT_DIR, config_secret_deploy['django']['media_root'])
 
 AUTH_SERVER_TOKEN_VALIDATION_URL = config_secret_deploy['django']['auth_server_token_validation_url']
