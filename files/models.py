@@ -30,3 +30,6 @@ class ImageInfo(models.Model):
         format='JPEG',		   # 최종 저장 포맷
         options={'quality': 60}  # 저장 옵션(JPEG 압축률 설정)
     )
+
+    def __str__(self):
+        return self.user_id
