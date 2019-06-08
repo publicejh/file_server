@@ -11,6 +11,9 @@ djangorestframework = "*"
 django-rest-swagger = "*"
 django-cors-headers = "*"
 mysqlclient = "*"
+pillow = "*"
+pilkit = "*"
+django-imagekit = "*"
 
 [requires]
 python_version = "3.7"
