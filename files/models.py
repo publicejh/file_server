@@ -33,3 +33,15 @@ class ImageInfo(models.Model):
 
     def __str__(self):
         return self.user_id
+
+
+class ChatImageInfo(models.Model):
+    user_id = models.IntegerField()
+    chat_id = models.IntegerField()
+    photo = models.ImageField(upload_to=user_directory_path)
+    photo_thumbnail = ImageSpecField(
+        source='photo', 		   # 원본 ImageField 명
+        processors=[Thumbnail(100, 100)],   # 처리할 작업목록
+        format='JPEG',		   # 최종 저장 포맷
+        options={'quality': 60}  # 저장 옵션(JPEG 압축률 설정)
+    )

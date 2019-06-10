@@ -20,3 +20,6 @@ MEDIA_URL = config_secret_deploy['django']['media_url']
 MEDIA_ROOT = os.path.join(ROOT_DIR, config_secret_deploy['django']['media_root'])
 
 AUTH_SERVER_TOKEN_VALIDATION_URL = config_secret_deploy['django']['auth_server_token_validation_url']
+
+CHAT_SERVER_API_KEY = config_secret_deploy['django']['chat_server_api_key']
+CHAT_SERVER_UPLOAD_IMAGE_API_URL = config_secret_deploy['django']['chat_server_upload_image_api_url']
