@@ -22,7 +22,7 @@ def user_directory_path(instance, filename):
 
 class ImageInfo(models.Model):
     user_id = models.IntegerField()
-    sig_id = models.IntegerField()
+    sig_id = models.IntegerField(null=True)
     photo = models.ImageField(upload_to=user_directory_path)
     photo_thumbnail = ImageSpecField(
         source='photo', 		   # 원본 ImageField 명

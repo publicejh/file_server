@@ -22,9 +22,12 @@ class ImageInfoCreateView(APIView):
     def post(self, request):
         file = request.FILES['file']
         user_id = request.data['userId']
-        sig_id = request.data['sigId']
+        sig_id = request.data.get('sigId', None)
 
-        image_info_serializer = ImageInfoSerializer(data={'user_id': user_id, 'sig_id': sig_id, 'photo': file})
+        if sig_id is None:
+            image_info_serializer = ImageInfoSerializer(data={'user_id': user_id, 'photo': file})
+        else:
+            image_info_serializer = ImageInfoSerializer(data={'user_id': user_id, 'sig_id': sig_id, 'photo': file})
 
         if image_info_serializer.is_valid():
             image_info_serializer.save()
