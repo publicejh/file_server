@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from files.models import ImageInfo, ChatImageInfo
@@ -13,13 +14,18 @@ import json
 from django.conf import settings
 
 
-class ImageInfoCreateView(APIView):
+class ImageInfoCreateView(ListCreateAPIView):
     queryset = ImageInfo.objects.all()
     # parser_classes = (FileUploadParser,)
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = ImageInfoSerializer
 
-    def post(self, request):
+    def get_queryset(self):
+        sig_id = self.request.query_params.get('sig_id', None)
+        queryset = ImageInfo.objects.filter(sig_id=sig_id)
+        return queryset
+
+    def create(self, request, *args, **kwargs):
         file = request.FILES['file']
         user_id = request.data['userId']
         sig_id = request.data.get('sigId', None)
@@ -35,6 +41,11 @@ class ImageInfoCreateView(APIView):
             return Response(image_info_serializer.data['photo_thumbnail'], status=status.HTTP_200_OK)
         else:
             return Response(image_info_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = ImageInfoSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class ChatImageUploadAndSendView(APIView):
